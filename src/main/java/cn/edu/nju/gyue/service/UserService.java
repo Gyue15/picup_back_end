@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface UserService {
 
-    ResultMessage addUser(UserModel userModel);
+    Integer addUser(UserModel userModel);
 
     ResultMessage modifyUser(UserModel userModel);
 

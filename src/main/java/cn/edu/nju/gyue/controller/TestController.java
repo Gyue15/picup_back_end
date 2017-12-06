@@ -26,7 +26,7 @@ public class TestController {
 
         //galleryService.initDatabase();
 
-        List<GalleryModel> galleryList = galleryService.getInterestGalleryList(1);
+        List<GalleryModel> galleryList = galleryService.getInterestGalleryList("test1");
 
         System.out.println("!!!!!gallery size: " + galleryList.size());
         for (GalleryModel gallery: galleryList) {

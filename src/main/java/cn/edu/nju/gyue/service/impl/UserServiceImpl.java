@@ -18,10 +18,10 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public ResultMessage addUser(UserModel userModel) {
+    public Integer addUser(UserModel userModel) {
         // 判断重复
         if (userRepository.findByUsername(userModel.getUsername()).size() != 0) {
-            return ResultMessage.FAILURE;
+            return -1;
         }
 
         User user = new User();
@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(userModel.getPassword());
         user.setUsername(userModel.getUsername());
         user = userRepository.saveAndFlush(user);
-        return (user == null || user.getUid() == null) ? ResultMessage.FAILURE : ResultMessage.SUCCESS;
+        return (user == null || user.getUid() == null) ? -1 : user.getUid();
     }
 
     @Override
