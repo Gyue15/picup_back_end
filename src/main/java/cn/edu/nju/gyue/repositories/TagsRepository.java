@@ -13,4 +13,6 @@ public interface TagsRepository extends JpaRepository<Tags, String> {
     List<Tags> findByGalleryList_Gid(Integer gid);
 
     Page<Tags> findByUsedTimeGreaterThanEqual(Integer base, Pageable pageable);
+
+    Tags findByTag(String tag);
 }

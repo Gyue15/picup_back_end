@@ -113,10 +113,31 @@ public class GalleryServiceImpl implements GalleryService {
         gallery.setLikeNum(galleryModel.getLikeNum());
         gallery.setGid(galleryModel.getGid());
         gallery.setTitle(galleryModel.getTitle());
+
+        // 增加tags
+        String[] tags = galleryModel.getTags();
+        for (String tag: tags) {
+            // 首先判断该tag是否存在
+            Tags tagEntity = tagsRepository.findByTag(tag);
+            if (tagEntity != null) {
+                // 标签已存在
+                tagEntity.setUsedTime(tagEntity.getUsedTime() + 1);
+                tagsRepository.saveAndFlush(tagEntity);
+            } else {
+                // 标签不存在
+                tagEntity = new Tags();
+                tagEntity.setTag(tag);
+                tagEntity.setUsedTime(1);
+                tagEntity = tagsRepository.saveAndFlush(tagEntity);
+            }
+            gallery.getTagsList().add(tagEntity);
+        }
+
         gallery = galleryRepository.save(gallery);
         if (gallery == null || gallery.getGid() == null) {
             return -1;
         }
+
         return gallery.getGid();
     }
 
