@@ -192,10 +192,10 @@ public class GalleryServiceImpl implements GalleryService {
 
             // user
             User user = userRepository.findByUid(gallery.getUid());
-            if (user != null) {
-                galleryModel.setAvatar(user.getAvatar());
-                galleryModel.setUserName(user.getUsername());
-            }
+
+            galleryModel.setAvatar(user.getAvatar());
+            galleryModel.setUserName(user.getUsername());
+
 
             // time
             galleryModel.setFormatDate(dateFormat.format(gallery.getDate()));

@@ -104,7 +104,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Integer usernameToUid(String userName) {
-        return userRepository.findByUsername(userName).get(0).getUid();
+        List<User> user = userRepository.findByUsername(userName);
+        if (user.size() == 0) {
+            return -1;
+        }
+        return user.get(0).getUid();
     }
 
     private UserModel toUserModel(User user) {
