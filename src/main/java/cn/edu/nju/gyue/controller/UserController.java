@@ -14,13 +14,25 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping(value = "/user", produces = "application/json;charset=UTF-8")
 public class UserController {
+
     @Autowired
     private UserService userService;
 
     @Autowired
     private AlbumController albumController;
 
-    @PostMapping(value = "/signup")
+
+    @PostMapping("/login")
+    @ResponseBody
+    public String logIn(String username, String password) {
+        UserModel userModel = userService.getUser(username, password);
+        if (userModel == null || userModel.getUid() == null) {
+            return JSON.toJSONString(ResultMessage.FAILURE);
+        }
+        return JSON.toJSONString(userModel);
+    }
+
+    @PostMapping("/signUp")
     @ResponseBody
     public String signUp(String username, String password) {
         UserModel userModel = new UserModel();
@@ -35,26 +47,16 @@ public class UserController {
         return res > 0 ? JSON.toJSONString(ResultMessage.SUCCESS) : JSON.toJSONString(ResultMessage.FAILURE);
     }
 
-    @PostMapping(value = "/login")
+    @PostMapping("/followUser")
     @ResponseBody
-    public String logIn(String email, String password) {
-        UserModel userModel = userService.getUser(email, password);
-        if (userModel == null || userModel.getUid() == null) {
-            return JSON.toJSONString(ResultMessage.FAILURE);
-        }
-        return JSON.toJSONString(userModel);
-    }
-
-    @PostMapping("/follow")
-    @ResponseBody
-    public String follow(String followerUser, String followedUser) {
+    public String followUser(String followerUser, String followedUser) {
         return JSON.toJSONString(userService.follow(followerUser, followedUser));
     }
 
-    @PostMapping("/followeduser")
+    @PostMapping("/followedUser")
     @ResponseBody
-    public String getFollowed(String userName) {
-        return JSON.toJSONString(userService.getFollowedUser(userName));
+    public String getFollowedUser(String username) {
+        return JSON.toJSONString(userService.getFollowedUser(username));
     }
 
     @PostMapping("/isFollowed")

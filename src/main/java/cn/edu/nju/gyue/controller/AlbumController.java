@@ -16,13 +16,13 @@ public class AlbumController {
     @Autowired
     private AlbumService albumService;
 
-    @PostMapping("/get")
+    @PostMapping("/getAlbums")
     @ResponseBody
-    public String getAlbums(String userName) {
-        return JSON.toJSONString(albumService.getAlbum(userName));
+    public String getAlbums(String username) {
+        return JSON.toJSONString(albumService.getAlbum(username));
     }
 
-    @PostMapping("/create")
+    @PostMapping("/createAlbum")
     @ResponseBody
     public String createNewAlbum(Integer uid, String album) {
         AlbumModel albumModel = new AlbumModel();

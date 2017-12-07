@@ -17,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/gallery", produces = "application/json;charset=UTF-8")
@@ -28,6 +27,45 @@ public class GalleryController {
     @Autowired
     private PhotoService photoService;
 
+
+    @GetMapping("/hotTags")
+    @ResponseBody
+    public String getHotTags() {
+        return JSON.toJSONString(galleryService.getHotTags());
+    }
+
+    @PostMapping("/hotGallery")
+    @ResponseBody
+    public String getHotGallery(String username, int pageNum) {
+        String res = JSON.toJSONString(galleryService.getHotGallerys(username, pageNum));
+        System.out.println(res);
+        return res;
+    }
+
+    @PostMapping("/interestGallery")
+    @ResponseBody
+    public String getInterestGallery(String username) {
+        return JSON.toJSONString(galleryService.getInterestGalleryList(username));
+    }
+
+    @PostMapping("/latestGallery")
+    @ResponseBody
+    public String getLatestGallery(String username, int pageNum) {
+        return JSON.toJSONString(galleryService.getLatestGallerys(username, pageNum));
+    }
+
+    @PostMapping("/likeGallery")
+    @ResponseBody
+    public String likeGallery(String username, Integer galleryID) {
+        return JSON.toJSONString(galleryService.likeGallery(galleryID, username));
+    }
+
+    @PostMapping("/searchGallery")
+    @ResponseBody
+    public String searchGallery(String tag, String username) {
+        return JSON.toJSONString(galleryService.searchGallery(tag, username));
+    }
+
     @PostMapping("/upload")
     @ResponseBody
     public void upload(MultipartFile file) {
@@ -35,17 +73,13 @@ public class GalleryController {
 
     }
 
-    @PostMapping("/post")
+    @PostMapping("/postPhoto")
     @ResponseBody
     public String postPhoto(String[] fileNames, String title, String description, String[] tags, String albumId, Integer uid) {
         Date date = new Date();
         List<String> fileUrls = new ArrayList<>();
-        for (Map.Entry<String, String> entry : FileUtil.filePathMap.entrySet()) {
-            for (String fileName : fileNames) {
-                if (fileName.equals(entry.getKey())) {
-                    fileUrls.add(entry.getValue());
-                }
-            }
+        for (String fileName : fileNames) {
+            fileUrls.add(FileUtil.filePathMap.get(fileName));
         }
 
         GalleryModel galleryModel = new GalleryModel();
@@ -70,41 +104,5 @@ public class GalleryController {
         return JSON.toJSONString(ResultMessage.SUCCESS);
     }
 
-    @GetMapping("/hottags")
-    @ResponseBody
-    public String getHotTags() {
-        return JSON.toJSONString(galleryService.getHotTags());
-    }
 
-    @PostMapping("/hotgallery")
-    @ResponseBody
-    public String getHotGallery(String username, int pageNum) {
-        String res = JSON.toJSONString(galleryService.getHotGallerys(username, pageNum));
-        System.out.println(res);
-        return res;
-    }
-
-    @PostMapping("/interestgallery")
-    @ResponseBody
-    public String getInterestGallery(String username) {
-        return JSON.toJSONString(galleryService.getInterestGalleryList(username));
-    }
-
-    @PostMapping("/latestgallery")
-    @ResponseBody
-    public String getLatestGallery(String username, int pageNum) {
-        return JSON.toJSONString(galleryService.getLatestGallerys(username, pageNum));
-    }
-
-    @PostMapping("/like")
-    @ResponseBody
-    public String likeShow(String username, Integer galleryID) {
-        return JSON.toJSONString(galleryService.likeGallery(galleryID, username));
-    }
-
-    @PostMapping("/search")
-    @ResponseBody
-    public String searchShow(String tag, String username) {
-        return JSON.toJSONString(galleryService.searchGallery(tag, username));
-    }
 }
