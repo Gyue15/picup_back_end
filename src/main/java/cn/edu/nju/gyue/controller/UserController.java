@@ -36,7 +36,7 @@ public class UserController {
     @ResponseBody
     public String signUp(String username, String password) {
         UserModel userModel = new UserModel();
-        userModel.setAvatar(FilePathConfig.AVATAR_URL + "default.png");
+        userModel.setAvatar(FilePathConfig.AVATAR_URL + "default.jpg");
         userModel.setPassword(password);
         userModel.setUsername(username);
         int res = userService.addUser(userModel);
