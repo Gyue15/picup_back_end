@@ -19,6 +19,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +40,8 @@ public class GalleryServiceImpl implements GalleryService {
 
     @Autowired
     private UserService userService;
+
+    private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     @Override
     public List<GalleryModel> getInterestGalleryList(String username) {
@@ -190,6 +194,9 @@ public class GalleryServiceImpl implements GalleryService {
             User user = userRepository.findByUid(gallery.getUid());
             galleryModel.setAvatar(user.getAvatar());
             galleryModel.setUserName(user.getUsername());
+
+            // time
+            galleryModel.setFormatDate(dateFormat.format(gallery.getDate()));
 
             // add
             galleryModelList.add(galleryModel);

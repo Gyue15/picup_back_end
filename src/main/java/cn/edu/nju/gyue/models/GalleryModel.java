@@ -30,6 +30,8 @@ public class GalleryModel {
 
     private Boolean isFollowed;
 
+    private String formatDate;
+
     public Integer getGid() {
         return gid;
     }
@@ -80,6 +82,14 @@ public class GalleryModel {
 
     public Boolean getFollowed() {
         return isFollowed;
+    }
+
+    public String getFormatDate() {
+        return formatDate;
+    }
+
+    public void setFormatDate(String formatDate) {
+        this.formatDate = formatDate;
     }
 
     public void setTitle(String title) {
