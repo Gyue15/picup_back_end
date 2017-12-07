@@ -98,7 +98,7 @@ public class GalleryServiceImpl implements GalleryService {
         galleryModel.setDescription(gallery.getDescription());
         galleryModel.setGid(gallery.getGid());
         galleryModel.setAid(gallery.getAid());
-        galleryModel.setTitle(gallery.getTitile());
+        galleryModel.setTitle(gallery.getTitle());
 
         return galleryModel;
     }
@@ -112,6 +112,7 @@ public class GalleryServiceImpl implements GalleryService {
         gallery.setUid(galleryModel.getUid());
         gallery.setLikeNum(galleryModel.getLikeNum());
         gallery.setGid(galleryModel.getGid());
+        gallery.setTitle(galleryModel.getTitle());
         gallery = galleryRepository.save(gallery);
         if (gallery == null || gallery.getGid() == null) {
             return -1;
@@ -165,7 +166,7 @@ public class GalleryServiceImpl implements GalleryService {
             galleryModel.setGid(gallery.getGid());
             galleryModel.setLikeNum(gallery.getLikeNum());
             galleryModel.setUid(gallery.getUid());
-            galleryModel.setTitle(gallery.getTitile());
+            galleryModel.setTitle(gallery.getTitle());
 
             // tags
             List<Tags> tagsList = tagsRepository.findByGalleryList_Gid(gallery.getGid());

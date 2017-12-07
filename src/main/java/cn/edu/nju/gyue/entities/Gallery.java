@@ -14,7 +14,7 @@ public class Gallery {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer gid;
 
-    private String titile;
+    private String title;
 
     private String description;
 
@@ -78,12 +78,12 @@ public class Gallery {
         return uid;
     }
 
-    public String getTitile() {
-        return titile;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTitile(String titile) {
-        this.titile = titile;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public void setTagsList(List<Tags> tagsList) {
