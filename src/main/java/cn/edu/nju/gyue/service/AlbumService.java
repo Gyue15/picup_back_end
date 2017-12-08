@@ -8,5 +8,5 @@ import java.util.List;
 public interface AlbumService {
     List<AlbumModel> getAlbum(String userName);
 
-    ResultMessage saveAlbum(AlbumModel albumModel);
+    ResultMessage saveAlbum(AlbumModel albumModel, String username);
 }

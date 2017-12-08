@@ -33,14 +33,17 @@ public class AlbumServiceImpl implements AlbumService {
     }
 
     @Override
-    public ResultMessage saveAlbum(AlbumModel albumModel) {
+    public ResultMessage saveAlbum(AlbumModel albumModel, String username) {
         Album album = new Album();
         String aid = albumModel.aid;
         if (aid == null) {
             aid = albumModel.uid+albumModel.title;
         }
         album.aid = aid;
-        album.uid = albumModel.uid;
+        if (userRepository.findByUsername(username).size() == 0) {
+            return ResultMessage.FAILURE;
+        }
+        album.uid = userRepository.findByUsername(username).get(0).uid;
         album.title = albumModel.title;
         // 判断重复
         if (albumRepository.findByAid(aid) != null) {

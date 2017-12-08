@@ -24,11 +24,10 @@ public class AlbumController {
 
     @PostMapping("/createAlbum")
     @ResponseBody
-    public String createNewAlbum(Integer uid, String album) {
+    public String createNewAlbum(String username, String album) {
         AlbumModel albumModel = new AlbumModel();
-        albumModel.uid = uid;
         albumModel.title = album;
 
-        return JSON.toJSONString(albumService.saveAlbum(albumModel));
+        return JSON.toJSONString(albumService.saveAlbum(albumModel, username));
     }
 }
