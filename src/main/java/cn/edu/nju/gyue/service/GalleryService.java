@@ -11,7 +11,7 @@ public interface GalleryService {
 
     ResultMessage likeGallery(Integer gid, String username);
 
-    GalleryModel getGallery(Integer gid);
+    GalleryModel getGallery(Integer gid, String username);
 
     Integer saveGallery(GalleryModel showModel);
 

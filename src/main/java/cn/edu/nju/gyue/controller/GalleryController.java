@@ -52,5 +52,11 @@ public class GalleryController {
         return JSON.toJSONString(galleryService.searchGallery(tag, username));
     }
 
+    @PostMapping("/detail")
+    @ResponseBody
+    public String getGalleryDetail(Integer gid, String username) {
+        return JSON.toJSONString(galleryService.getGallery(gid, username));
+    }
+
 
 }

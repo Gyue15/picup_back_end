@@ -82,19 +82,13 @@ public class GalleryServiceImpl implements GalleryService {
     }
 
     @Override
-    public GalleryModel getGallery(Integer gid) {
+    public GalleryModel getGallery(Integer gid, String username) {
         Gallery gallery = galleryRepository.findByGid(gid);
         GalleryModel galleryModel = new GalleryModel();
         if (gallery == null || gallery.gid == null || gallery.gid <= 0) {
             return galleryModel;
         }
-        galleryModel.likeNum = gallery.likeNum;
-        galleryModel.date = gallery.date;
-        galleryModel.uid = gallery.uid;
-        galleryModel.description = gallery.description;
-        galleryModel.gid = gallery.gid;
-        galleryModel.aid = gallery.aid;
-        galleryModel.title = gallery.title;
+        galleryModel = galleryUtil.toGalleryModel(gallery, userService.usernameToUid(username));
 
         return galleryModel;
     }

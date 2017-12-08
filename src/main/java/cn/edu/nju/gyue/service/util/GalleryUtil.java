@@ -37,55 +37,58 @@ public class GalleryUtil {
 
     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
+    public GalleryModel toGalleryModel(Gallery gallery, Integer uid) {
+        GalleryModel galleryModel = new GalleryModel();
+
+        // base
+        galleryModel.aid = gallery.aid;
+        galleryModel.date = gallery.date;
+        galleryModel.description = gallery.description;
+        galleryModel.gid = gallery.gid;
+        galleryModel.likeNum = gallery.likeNum;
+        galleryModel.uid = gallery.uid;
+        galleryModel.title = gallery.title;
+
+        // tags
+        List<Tags> tagsList = tagsRepository.findByGalleryList_Gid(gallery.gid);
+        String[] tags = new String[tagsList.size()];
+        for (int j = 0; j < tags.length; j++) {
+            tags[j] = tagsList.get(j).tag;
+        }
+        galleryModel.tags = tags;
+
+        // pics
+        List<Photo> photoList = photoRepository.findByGid(gallery.gid);
+        String pics[] = new String[photoList.size()];
+        for (int i = 0; i < pics.length; i++) {
+            pics[i] = photoList.get(i).pic;
+        }
+        galleryModel.pictures = pics;
+
+        // is liked
+        Gallery testGallery = galleryRepository.findByGidAndLikedUser_Uid(gallery.gid, uid);
+        galleryModel.isLiked = testGallery != null && testGallery.gid != null;
+
+        // is followed
+        galleryModel.isFollowed = userService.isFollowed(uid, gallery.gid);
+
+        // user
+        User user = userRepository.findByUid(gallery.uid);
+
+        galleryModel.avatar = user.avatar;
+        galleryModel.userName = user.username;
+
+
+        // time
+        galleryModel.formatDate = dateFormat.format(gallery.date);
+
+        return galleryModel;
+    }
+
     public  List<GalleryModel> toGalleryModel(List<Gallery> galleryList, Integer uid) {
         List<GalleryModel> galleryModelList = new ArrayList<>();
         for (Gallery gallery: galleryList) {
-            GalleryModel galleryModel = new GalleryModel();
-
-            // base
-            galleryModel.aid = gallery.aid;
-            galleryModel.date = gallery.date;
-            galleryModel.description = gallery.description;
-            galleryModel.gid = gallery.gid;
-            galleryModel.likeNum = gallery.likeNum;
-            galleryModel.uid = gallery.uid;
-            galleryModel.title = gallery.title;
-
-            // tags
-            List<Tags> tagsList = tagsRepository.findByGalleryList_Gid(gallery.gid);
-            String[] tags = new String[tagsList.size()];
-            for (int j = 0; j < tags.length; j++) {
-                tags[j] = tagsList.get(j).tag;
-            }
-            galleryModel.tags = tags;
-
-            // pics
-            List<Photo> photoList = photoRepository.findByGid(gallery.gid);
-            String pics[] = new String[photoList.size()];
-            for (int i = 0; i < pics.length; i++) {
-                pics[i] = photoList.get(i).pic;
-            }
-            galleryModel.pictures = pics;
-
-            // is liked
-            Gallery testGallery = galleryRepository.findByGidAndLikedUser_Uid(gallery.gid, uid);
-            galleryModel.isLiked = testGallery != null && testGallery.gid != null;
-
-            // is followed
-            galleryModel.isFollowed = userService.isFollowed(uid, gallery.gid);
-
-            // user
-            User user = userRepository.findByUid(gallery.uid);
-
-            galleryModel.avatar = user.avatar;
-            galleryModel.userName = user.username;
-
-
-            // time
-            galleryModel.formatDate = dateFormat.format(gallery.date);
-
-            // add
-            galleryModelList.add(galleryModel);
+            galleryModelList.add(toGalleryModel(gallery, uid));
 
         }
         return galleryModelList;

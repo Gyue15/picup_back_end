@@ -23,4 +23,8 @@ dist/
 nbdist/
 .nb-gradle/
 
-/src/main/java/cn/edu/nju/gyue/configuration/FilePathConfig.java
+src/main/java/cn/edu/nju/gyue/configuration/FilePathConfig.java
+src/main/resources/static/
+src/main/resources/templates/
+src/main/java/cn/edu/nju/gyue/configuration/FilePathConfig.java
+src/main/java/cn/edu/nju/gyue/configuration/FilePathConfig.java
