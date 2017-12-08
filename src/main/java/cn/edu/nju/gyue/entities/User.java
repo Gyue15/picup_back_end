@@ -1,5 +1,7 @@
 package cn.edu.nju.gyue.entities;
 
+import com.alibaba.fastjson.JSON;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,15 +10,15 @@ import java.util.List;
 @Table(name = "user")
 public class User {
 
-    private String username;
+    public String username;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer uid;
+    public Integer uid;
 
-    private String password;
+    public String password;
 
-    private String avatar;
+    public String avatar;
 
     @ManyToMany(cascade = CascadeType.REFRESH, mappedBy = "likedUser")
     private List<Gallery> galleryList;
@@ -51,42 +53,6 @@ public class User {
         return followedUsers;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public Integer getUid() {
-        return uid;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setGalleryList(List<Gallery> galleryList) {
-        this.galleryList = galleryList;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setUid(Integer uid) {
-        this.uid = uid;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
     @Override
     public boolean equals(Object obj) {
 
@@ -95,14 +61,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "User [name = "
-                + username
-                + ", uid = "
-                + uid
-                + ", password = "
-                + password
-                + ", avatar = "
-                + avatar
-                + "]";
+        return JSON.toJSONString(this);
     }
 }

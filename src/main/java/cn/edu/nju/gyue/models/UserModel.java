@@ -1,45 +1,15 @@
 package cn.edu.nju.gyue.models;
 
+import com.alibaba.fastjson.JSON;
+
 public class UserModel {
-    private Integer uid;
+    public Integer uid;
 
-    private String username;
+    public String username;
 
-    private String password;
+    public String password;
 
-    private String avatar;
-
-    public Integer getUid() {
-        return uid;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setUid(Integer uid) {
-        this.uid = uid;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
+    public String avatar;
 
     @Override
     public boolean equals(Object obj) {
@@ -49,14 +19,6 @@ public class UserModel {
 
     @Override
     public String toString() {
-        return "User [name = "
-                + username
-                + ", uid = "
-                + uid
-                + ", password = "
-                + password
-                + ", avatar = "
-                + avatar
-                + "]";
+        return JSON.toJSONString(this);
     }
 }

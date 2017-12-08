@@ -1,5 +1,7 @@
 package cn.edu.nju.gyue.entities;
 
+import com.alibaba.fastjson.JSON;
+
 import javax.persistence.*;
 
 @Entity
@@ -8,45 +10,13 @@ public class Photo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer pid;
+    public Integer pid;
 
-    private String pic;
+    public String pic;
 
-    private Integer gid;
+    public Integer gid;
 
-    private String aid;
-
-    public Integer getPid() {
-        return pid;
-    }
-
-    public String getPic() {
-        return pic;
-    }
-
-    public Integer getGid() {
-        return gid;
-    }
-
-    public String getAid() {
-        return aid;
-    }
-
-    public void setPid(Integer pid) {
-        this.pid = pid;
-    }
-
-    public void setPic(String pic) {
-        this.pic = pic;
-    }
-
-    public void setGid(Integer gid) {
-        this.gid = gid;
-    }
-
-    public void setAid(String aid) {
-        this.aid = aid;
-    }
+    public String aid;
 
     @Override
     public boolean equals(Object obj) {
@@ -55,14 +25,6 @@ public class Photo {
 
     @Override
     public String toString() {
-        return "Photo [pic = "
-                + pic.toString()
-                + ", pid = "
-                + pid
-                + ", sid = "
-                + gid.toString()
-                + ", aid = "
-                + aid.toString()
-                + "]";
+        return JSON.toJSONString(this);
     }
 }

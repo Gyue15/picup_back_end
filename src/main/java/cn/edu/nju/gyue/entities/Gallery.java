@@ -1,6 +1,8 @@
 package cn.edu.nju.gyue.entities;
 
 
+import com.alibaba.fastjson.JSON;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,21 +14,21 @@ public class Gallery {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer gid;
+    public Integer gid;
 
-    private String title;
+    public String title;
 
-    private String description;
+    public String description;
 
     @Column(name = "`date`")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
+    public Date date;
 
-    private Integer likeNum;
+    public Integer likeNum;
 
-    private String aid;
+    public String aid;
 
-    private Integer uid;
+    public Integer uid;
 
     @ManyToMany(cascade = CascadeType.REFRESH)
     @JoinTable(name = "like", inverseJoinColumns =
@@ -54,70 +56,6 @@ public class Gallery {
         return tagsList;
     }
 
-    public Integer getGid() {
-        return gid;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public Integer getLikeNum() {
-        return likeNum;
-    }
-
-    public String getAid() {
-        return this.aid;
-    }
-
-    public Integer getUid() {
-        return uid;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setTagsList(List<Tags> tagsList) {
-        this.tagsList = tagsList;
-    }
-
-    public void setLikedUser(List<User> likedUser) {
-        this.likedUser = likedUser;
-    }
-
-    public void setGid(Integer gid) {
-        this.gid = gid;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public void setLikeNum(Integer likeNum) {
-        this.likeNum = likeNum;
-    }
-
-    public void setAid(String aid) {
-        this.aid = aid;
-    }
-
-    public void setUid(Integer uid) {
-        this.uid = uid;
-    }
-
     @Override
     public boolean equals(Object obj) {
         return obj != null && obj.getClass() == this.getClass() && this.gid.equals(((Gallery) obj).gid);
@@ -125,16 +63,6 @@ public class Gallery {
 
     @Override
     public String toString() {
-        return "Gallery [gid = "
-                + gid.toString()
-                + ", description = "
-                + description
-                + ", date = "
-                + date.toString()
-                + ", likeNum = "
-                + likeNum
-                + ", uid = "
-                + uid
-                + "]";
+        return JSON.toJSONString(this);
     }
 }

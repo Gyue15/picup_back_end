@@ -1,5 +1,7 @@
 package cn.edu.nju.gyue.entities;
 
+import com.alibaba.fastjson.JSON;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,35 +9,11 @@ import javax.persistence.*;
 public class Album {
 
     @Id
-    private String aid;
+    public String aid;
 
-    private String title;
+    public String title;
 
-    private Integer uid;
-
-    public String getAid() {
-        return aid;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public Integer getUid() {
-        return uid;
-    }
-
-    public void setAid(String aid) {
-        this.aid = aid;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setUid(Integer uid) {
-        this.uid = uid;
-    }
+    public Integer uid;
 
     @Override
     public boolean equals(Object obj){
@@ -44,12 +22,6 @@ public class Album {
 
     @Override
     public String toString() {
-        return "Album [aid = "
-                + aid.toString()
-                + ", title = "
-                + title
-                + ", uid = "
-                + uid
-                + "]";
+        return JSON.toJSONString(this);
     }
 }

@@ -43,13 +43,13 @@ public class PhotoController {
         }
 
         GalleryModel galleryModel = new GalleryModel();
-        galleryModel.setTags(tags);
-        galleryModel.setDescription(description);
-        galleryModel.setUid(uid);
-        galleryModel.setLikeNum(0);
-        galleryModel.setDate(date);
-        galleryModel.setAid(albumId);
-        galleryModel.setTitle(title);
+        galleryModel.tags = tags;
+        galleryModel.description = description;
+        galleryModel.uid = uid;
+        galleryModel.likeNum = 0;
+        galleryModel.date = date;
+        galleryModel.aid = albumId;
+        galleryModel.title = title;
         Integer gid = galleryService.saveGallery(galleryModel);
         if (gid <= 0) {
             return JSON.toJSONString(ResultMessage.FAILURE);

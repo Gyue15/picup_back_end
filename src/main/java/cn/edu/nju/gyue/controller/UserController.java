@@ -26,7 +26,7 @@ public class UserController {
     @ResponseBody
     public String logIn(String username, String password) {
         UserModel userModel = userService.getUser(username, password);
-        if (userModel == null || userModel.getUid() == null) {
+        if (userModel == null || userModel.uid == null) {
             return JSON.toJSONString(ResultMessage.FAILURE);
         }
         return JSON.toJSONString(userModel);
@@ -36,9 +36,9 @@ public class UserController {
     @ResponseBody
     public String signUp(String username, String password) {
         UserModel userModel = new UserModel();
-        userModel.setAvatar(FilePathConfig.AVATAR_URL + "default.jpg");
-        userModel.setPassword(password);
-        userModel.setUsername(username);
+        userModel.avatar = FilePathConfig.AVATAR_URL + "default.jpg";
+        userModel.password = password;
+        userModel.username = username;
         int res = userService.addUser(userModel);
         if (res > 0) {
             albumController.createNewAlbum(res, "默认专辑");

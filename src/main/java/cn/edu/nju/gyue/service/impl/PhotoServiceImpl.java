@@ -15,14 +15,14 @@ public class PhotoServiceImpl implements PhotoService {
     @Override
     public Integer addPhoto(String pic, Integer gid, String aid) {
         Photo photo = new Photo();
-        photo.setPic(pic);
-        photo.setGid(gid);
-        photo.setAid(aid);
+        photo.pic = pic;
+        photo.gid = gid;
+        photo.aid = aid;
         System.out.println(photo.toString());
         photo = photoRepository.saveAndFlush(photo);
-        if (photo == null || photo.getPid() == null) {
+        if (photo == null || photo.pid == null) {
             return -1;
         }
-        return photo.getPid();
+        return photo.pid;
     }
 }

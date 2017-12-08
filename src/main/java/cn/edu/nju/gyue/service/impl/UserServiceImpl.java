@@ -20,31 +20,31 @@ public class UserServiceImpl implements UserService {
     @Override
     public Integer addUser(UserModel userModel) {
         // 判断重复
-        if (userRepository.findByUsername(userModel.getUsername()).size() != 0) {
+        if (userRepository.findByUsername(userModel.username).size() != 0) {
             return -1;
         }
 
         User user = new User();
-        user.setAvatar(userModel.getAvatar());
-        user.setPassword(userModel.getPassword());
-        user.setUsername(userModel.getUsername());
+        user.avatar = userModel.avatar;
+        user.password = userModel.password;
+        user.username = userModel.username;
         user = userRepository.saveAndFlush(user);
-        return (user == null || user.getUid() == null) ? -1 : user.getUid();
+        return (user == null || user.uid == null) ? -1 : user.uid;
     }
 
     @Override
     public ResultMessage modifyUser(UserModel userModel) {
         // 判断重复
-        if (userRepository.findByUsername(userModel.getUsername()).size() == 0) {
+        if (userRepository.findByUsername(userModel.username).size() == 0) {
             return ResultMessage.FAILURE;
         }
 
         User user = new User();
-        user.setAvatar(userModel.getAvatar());
-        user.setPassword(userModel.getPassword());
-        user.setUsername(userModel.getUsername());
+        user.avatar = userModel.avatar;
+        user.password = userModel.password;
+        user.username = userModel.username;
         user = userRepository.saveAndFlush(user);
-        return (user == null || user.getUid() == null) ? ResultMessage.FAILURE : ResultMessage.SUCCESS;
+        return (user == null || user.uid == null) ? ResultMessage.FAILURE : ResultMessage.SUCCESS;
     }
 
     @Override
@@ -55,11 +55,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserModel> getFollowedUser(String userName) {
-        List<User> userList = userRepository.findByFollowers_Uid(userRepository.findByUsername(userName).get(0).getUid());
+        List<User> userList = userRepository.findByFollowers_Uid(userRepository.findByUsername(userName).get(0).uid);
         List<UserModel> userModelList = new ArrayList<>();
         for (User user: userList) {
             UserModel userModel = toUserModel(user);
-            if (userModel.getUid() != null && userModel.getUid() != 0) {
+            if (userModel.uid != null && userModel.uid != 0) {
                 userModelList.add(userModel);
             }
         }
@@ -82,9 +82,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Boolean isFollowed(String followerUser, String followedUser) {
-        List<User> userList = userRepository.findByFollowers_Uid(userRepository.findByUsername(followerUser).get(0).getUid());
+        List<User> userList = userRepository.findByFollowers_Uid(userRepository.findByUsername(followerUser).get(0).uid);
         for (User user: userList) {
-            if (user.getUsername().equals(followedUser)) {
+            if (user.username.equals(followedUser)) {
                 return true;
             }
         }
@@ -95,7 +95,7 @@ public class UserServiceImpl implements UserService {
     public Boolean isFollowed(Integer followerUid, Integer followedUid) {
         List<User> userList = userRepository.findByFollowers_Uid(followedUid);
         for (User user: userList) {
-            if (user.getUid().equals(followedUid)) {
+            if (user.uid.equals(followedUid)) {
                 return true;
             }
         }
@@ -108,7 +108,7 @@ public class UserServiceImpl implements UserService {
         if (user.size() == 0) {
             return -1;
         }
-        return user.get(0).getUid();
+        return user.get(0).uid;
     }
 
     private UserModel toUserModel(User user) {
@@ -116,10 +116,10 @@ public class UserServiceImpl implements UserService {
         if (user == null) {
             return userModel;
         }
-        userModel.setAvatar(user.getAvatar());
-        userModel.setPassword(user.getPassword());
-        userModel.setUsername(user.getUsername());
-        userModel.setUid(user.getUid());
+        userModel.avatar = user.avatar;
+        userModel.password = user.password;
+        userModel.username = user.username;
+        userModel.uid = user.uid;
         return userModel;
     }
 }

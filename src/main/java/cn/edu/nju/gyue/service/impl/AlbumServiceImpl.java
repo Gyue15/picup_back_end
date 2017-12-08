@@ -35,13 +35,13 @@ public class AlbumServiceImpl implements AlbumService {
     @Override
     public ResultMessage saveAlbum(AlbumModel albumModel) {
         Album album = new Album();
-        String aid = albumModel.getAid();
+        String aid = albumModel.aid;
         if (aid == null) {
-            aid = albumModel.getUid()+albumModel.getTitle();
+            aid = albumModel.uid+albumModel.title;
         }
-        album.setAid(aid);
-        album.setUid(albumModel.getUid());
-        album.setTitle(albumModel.getTitle());
+        album.aid = aid;
+        album.uid = albumModel.uid;
+        album.title = albumModel.title;
         // 判断重复
         if (albumRepository.findByAid(aid) != null) {
             return ResultMessage.FAILURE;
@@ -53,17 +53,17 @@ public class AlbumServiceImpl implements AlbumService {
 
     private AlbumModel toAlbumModel(Album album) {
         AlbumModel albumModel = new AlbumModel();
-        if (album == null || album.getAid() == null) {
+        if (album == null || album.aid == null) {
             return albumModel;
         }
-        albumModel.setTitle(album.getTitle());
-        albumModel.setAid(album.getAid());
-        albumModel.setUid(album.getUid());
+        albumModel.title = album.title;
+        albumModel.aid = album.aid;
+        albumModel.uid = album.uid;
 
         return albumModel;
     }
 
     private Integer toUid(String userName) {
-        return userRepository.findByUsername(userName).get(0).getUid();
+        return userRepository.findByUsername(userName).get(0).uid;
     }
 }

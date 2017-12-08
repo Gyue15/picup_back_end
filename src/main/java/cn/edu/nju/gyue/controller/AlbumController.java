@@ -26,8 +26,8 @@ public class AlbumController {
     @ResponseBody
     public String createNewAlbum(Integer uid, String album) {
         AlbumModel albumModel = new AlbumModel();
-        albumModel.setUid(uid);
-        albumModel.setTitle(album);
+        albumModel.uid = uid;
+        albumModel.title = album;
 
         return JSON.toJSONString(albumService.saveAlbum(albumModel));
     }
