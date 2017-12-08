@@ -82,6 +82,30 @@ public class GalleryServiceImpl implements GalleryService {
     }
 
     @Override
+    public ResultMessage unLikeGallery(Integer gid, String username) {
+        Integer uid = userService.usernameToUid(username);
+        User user = userRepository.findByUid(uid);
+        Gallery gallery = galleryRepository.findByGid(gid);
+        // gid有误
+        if (gallery == null) {
+            return ResultMessage.FAILURE;
+        }
+
+        // 没赞过
+        Gallery testGallery = galleryRepository.findByGidAndLikedUser_Uid(gid, uid);
+        if (testGallery == null || testGallery.gid == null) {
+            return ResultMessage.FAILURE;
+        }
+
+        gallery.getLikedUser().remove(user);
+        gallery.likeNum = gallery.likeNum - 1;
+        gallery = galleryRepository.saveAndFlush(gallery);
+        System.out.println("save gallery: " + gallery.toString());
+
+        return ResultMessage.SUCCESS;
+    }
+
+    @Override
     public GalleryModel getGallery(Integer gid, String username) {
         Gallery gallery = galleryRepository.findByGid(gid);
         GalleryModel galleryModel = new GalleryModel();

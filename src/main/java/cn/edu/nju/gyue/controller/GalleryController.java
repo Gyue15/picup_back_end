@@ -42,8 +42,14 @@ public class GalleryController {
 
     @PostMapping("/likeGallery")
     @ResponseBody
-    public String likeGallery(String username, Integer galleryID) {
-        return JSON.toJSONString(galleryService.likeGallery(galleryID, username));
+    public String likeGallery(String username, Integer gid) {
+        return JSON.toJSONString(galleryService.likeGallery(gid, username));
+    }
+
+    @PostMapping("/unLikeGallery")
+    @ResponseBody
+    public String unLikeGallery(String username, Integer gid) {
+        return null;
     }
 
     @PostMapping("/searchGallery")
