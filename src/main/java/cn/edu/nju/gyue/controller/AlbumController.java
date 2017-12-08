@@ -30,4 +30,10 @@ public class AlbumController {
 
         return JSON.toJSONString(albumService.saveAlbum(albumModel, username));
     }
+
+    @PostMapping("/deleteAlbum")
+    @ResponseBody
+    public String deleteAlbum(String aid) {
+        return JSON.toJSONString(albumService.deleteAlbum(aid));
+    }
 }

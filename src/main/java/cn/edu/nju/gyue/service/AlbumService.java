@@ -9,4 +9,6 @@ public interface AlbumService {
     List<AlbumModel> getAlbum(String userName);
 
     ResultMessage saveAlbum(AlbumModel albumModel, String username);
+
+    ResultMessage deleteAlbum(String aid);
 }

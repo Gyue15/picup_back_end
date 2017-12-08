@@ -54,6 +54,16 @@ public class AlbumServiceImpl implements AlbumService {
         return ResultMessage.SUCCESS;
     }
 
+    @Override
+    public ResultMessage deleteAlbum(String aid) {
+        Album album = albumRepository.findByAid(aid);
+        if (album == null) {
+            return ResultMessage.FAILURE;
+        }
+        albumRepository.delete(album);
+        return ResultMessage.SUCCESS;
+    }
+
     private AlbumModel toAlbumModel(Album album) {
         AlbumModel albumModel = new AlbumModel();
         if (album == null || album.aid == null) {
