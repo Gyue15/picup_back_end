@@ -81,6 +81,34 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public ResultMessage unFollow(String followerUser, String followedUser) {
+        if (!isFollowed(followerUser, followedUser)) {
+            return ResultMessage.FAILURE;
+        }
+        User follower = userRepository.findByUsername(followerUser).get(0);
+        User followed = userRepository.findByUsername(followedUser).get(0);
+
+        System.out.println("============0===================");
+        for (int i = 0; i < followed.getFollowers().size(); i++) {
+            System.out.println(followed.getFollowers().get(i).toString());
+        }
+
+        followed.getFollowers().remove(follower);
+        System.out.println("============1===================");
+        for (int i = 0; i < followed.getFollowers().size(); i++) {
+            System.out.println(followed.getFollowers().get(i).toString());
+        }
+        followed = userRepository.saveAndFlush(followed);
+
+        System.out.println("============2===================");
+        for (int i = 0; i < followed.getFollowers().size(); i++) {
+            System.out.println(followed.getFollowers().get(i).toString());
+        }
+
+        return ResultMessage.SUCCESS;
+    }
+
+    @Override
     public Boolean isFollowed(String followerUser, String followedUser) {
         List<User> userList = userRepository.findByFollowers_Uid(userRepository.findByUsername(followerUser).get(0).uid);
         for (User user: userList) {

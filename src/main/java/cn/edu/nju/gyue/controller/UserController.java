@@ -53,6 +53,12 @@ public class UserController {
         return JSON.toJSONString(userService.follow(followerUser, followedUser));
     }
 
+    @PostMapping("/unfollowUser")
+    @ResponseBody
+    public String unFollowUser(String followerUser, String followedUser) {
+        return JSON.toJSONString(userService.unFollow(followerUser, followedUser));
+    }
+
     @PostMapping("/followedUser")
     @ResponseBody
     public String getFollowedUser(String username) {

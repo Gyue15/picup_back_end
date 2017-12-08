@@ -25,8 +25,8 @@ public class User {
 
     @ManyToMany(cascade = CascadeType.REFRESH)
     @JoinTable(name = "follow", inverseJoinColumns =
-    @JoinColumn(name = "followed_uid"), joinColumns =
-    @JoinColumn(name = "follower_uid"))
+    @JoinColumn(name = "follower_uid"), joinColumns =
+    @JoinColumn(name = "followed_uid"))
     private List<User> followers;
 
     @ManyToMany(cascade = CascadeType.REFRESH, mappedBy = "followers")

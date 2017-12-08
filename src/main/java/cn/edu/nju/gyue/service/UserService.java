@@ -17,6 +17,8 @@ public interface UserService {
 
     ResultMessage follow(String followerUser, String followedUser);
 
+    ResultMessage unFollow(String followerUser, String followedUser);
+
     Boolean isFollowed(String followerUser, String followedUser);
 
     Boolean isFollowed(Integer followerUid, Integer followedUid);

@@ -33,10 +33,7 @@ public class TestController {
             System.out.println(gallery.toString());
         }
 
-        System.out.println(userService.follow("test1", "test2"));
-        System.out.println(userService.follow("test2", "test3"));
-        System.out.println(userService.follow("test3", "test4"));
-        System.out.println(userService.follow("test4", "test1"));
+        System.out.println(userService.unFollow("test1", "test2"));
 
         return "hello";
     }
