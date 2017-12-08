@@ -39,10 +39,17 @@ public class UserServiceImpl implements UserService {
             return ResultMessage.FAILURE;
         }
 
-        User user = new User();
-        user.avatar = userModel.avatar;
-        user.password = userModel.password;
-        user.username = userModel.username;
+        User user = userRepository.findByUsername(userModel.username).get(0);
+        if (userModel.avatar != null) {
+            user.avatar = userModel.avatar;
+        }
+        if (userModel.username != null) {
+            user.username = userModel.username;
+        }
+        if (userModel.username != null) {
+            user.password = userModel.password;
+        }
+
         user = userRepository.saveAndFlush(user);
         return (user == null || user.uid == null) ? ResultMessage.FAILURE : ResultMessage.SUCCESS;
     }
