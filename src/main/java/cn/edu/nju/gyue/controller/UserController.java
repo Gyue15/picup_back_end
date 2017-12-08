@@ -43,7 +43,7 @@ public class UserController {
         userModel.username = username;
         int res = userService.addUser(userModel);
         if (res > 0) {
-            albumController.createNewAlbum(res, "默认专辑");
+            albumController.createNewAlbum(username, "默认专辑");
         }
 
         return res > 0 ? JSON.toJSONString(ResultMessage.SUCCESS) : JSON.toJSONString(ResultMessage.FAILURE);
