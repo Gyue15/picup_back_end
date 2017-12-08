@@ -66,6 +66,14 @@ public class UserController {
         return JSON.toJSONString(userService.modifyUser(userModel));
     }
 
+    @PostMapping("/changePassword")
+    public String changePassword(String username, String password) {
+        UserModel userModel = new UserModel();
+        userModel.username = username;
+        userModel.password = password;
+        return JSON.toJSONString(userService.modifyUser(userModel));
+    }
+
 
     @PostMapping("/followUser")
     @ResponseBody
