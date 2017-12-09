@@ -42,4 +42,5 @@ public class AlbumController {
     public String deleteAlbum(String aid) {
         return JSON.toJSONString(albumService.deleteAlbum(aid));
     }
+
 }

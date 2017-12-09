@@ -99,6 +99,18 @@ public class UserController {
         return JSON.toJSONString(userService.unFollow(username, followedUsername));
     }
 
+    @PostMapping("/unfollowUserList")
+    @ResponseBody
+    public String unFollowUserList(String username, String[] followedUsernameList) {
+        for (String followedUsername: followedUsernameList) {
+            ResultMessage res = userService.unFollow(username, followedUsername);
+            if (res != ResultMessage.SUCCESS) {
+                return JSON.toJSONString(res);
+            }
+        }
+        return JSON.toJSONString(ResultMessage.SUCCESS);
+    }
+
     @PostMapping("/followedUser")
     @ResponseBody
     public String getFollowedUser(String username) {

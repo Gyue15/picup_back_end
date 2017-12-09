@@ -42,7 +42,9 @@ public class GalleryServiceImpl implements GalleryService {
     @Override
     public List<GalleryModel> getInterestGalleryList(String username) {
         Integer uid = userService.usernameToUid(username);
+        System.out.println(uid);
         List<User> userList = userRepository.findByFollowers_Uid(uid);
+        System.out.println(userList.size());
         List<Gallery> galleryList = new ArrayList<>();
 
         // 获得所有的Gallery

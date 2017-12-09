@@ -29,11 +29,11 @@ public class TestController {
 
         //galleryService.initDatabase();
 
-        List<GalleryModel> galleryList = galleryService.getInterestGalleryList("test1");
+        List<GalleryModel> galleryList = galleryService.getInterestGalleryList("gy");
 
         System.out.println("!!!!!gallery size: " + galleryList.size());
         for (GalleryModel gallery: galleryList) {
-            System.out.println(gallery.toString());
+            System.out.println(gallery.gid + gallery.toString());
         }
 
         System.out.println(galleryController.searchGallery("猫", "gyue"));
