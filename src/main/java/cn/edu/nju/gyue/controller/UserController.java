@@ -64,10 +64,12 @@ public class UserController {
         userModel.username = username;
         userModel.avatar = url;
         ResultMessage res = userService.modifyUser(userModel);
+        System.out.println("postAvatar:"+res);
         if (res != ResultMessage.SUCCESS) {
             return JSON.toJSONString(res);
         }
-        return url;
+        System.out.println("postAvatar:"+url);
+        return JSON.toJSONString(url);
     }
 
     @PostMapping("/changePassword")
