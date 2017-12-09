@@ -10,6 +10,8 @@ public class AlbumModel {
 
     public Integer uid;
 
+    public String[] photos;
+
     @Override
     public boolean equals(Object obj){
         return obj != null && obj.getClass() == this.getClass() && this.aid.equals(((AlbumModel)obj).aid);

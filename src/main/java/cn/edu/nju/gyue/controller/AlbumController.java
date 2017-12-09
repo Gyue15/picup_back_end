@@ -22,6 +22,12 @@ public class AlbumController {
         return JSON.toJSONString(albumService.getAlbum(username));
     }
 
+    @PostMapping("/albumDetail")
+    @ResponseBody
+    public String getAlbumDetail(String aid) {
+        return JSON.toJSONString(albumService.getAlbumDetail(aid));
+    }
+
     @PostMapping("/createAlbum")
     @ResponseBody
     public String createNewAlbum(String username, String album) {

@@ -8,6 +8,8 @@ import java.util.List;
 public interface AlbumService {
     List<AlbumModel> getAlbum(String userName);
 
+    AlbumModel getAlbumDetail(String aid);
+
     ResultMessage saveAlbum(AlbumModel albumModel, String username);
 
     ResultMessage deleteAlbum(String aid);

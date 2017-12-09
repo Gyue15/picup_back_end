@@ -1,8 +1,10 @@
 package cn.edu.nju.gyue.service.impl;
 
 import cn.edu.nju.gyue.entities.Album;
+import cn.edu.nju.gyue.entities.Photo;
 import cn.edu.nju.gyue.models.AlbumModel;
 import cn.edu.nju.gyue.repositories.AlbumRepository;
+import cn.edu.nju.gyue.repositories.PhotoRepository;
 import cn.edu.nju.gyue.repositories.UserRepository;
 import cn.edu.nju.gyue.service.AlbumService;
 import cn.edu.nju.gyue.util.ResultMessage;
@@ -21,6 +23,9 @@ public class AlbumServiceImpl implements AlbumService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    PhotoRepository photoRepository;
+
     @Override
     public List<AlbumModel> getAlbum(String userName) {
         Integer uid = toUid(userName);
@@ -30,6 +35,12 @@ public class AlbumServiceImpl implements AlbumService {
             albumModelList.add(toAlbumModel(album));
         }
         return albumModelList;
+    }
+
+    @Override
+    public AlbumModel getAlbumDetail(String aid) {
+        Album album = albumRepository.findByAid(aid);
+        return toAlbumModel(album);
     }
 
     @Override
@@ -72,6 +83,13 @@ public class AlbumServiceImpl implements AlbumService {
         albumModel.title = album.title;
         albumModel.aid = album.aid;
         albumModel.uid = album.uid;
+
+        List<Photo> photos = photoRepository.findByAid(album.aid);
+        String[] photoUrl = new String[photos.size()];
+        for (int i = 0; i < photoUrl.length; i++) {
+            photoUrl[i] = photos.get(i).pic;
+        }
+        albumModel.photos = photoUrl;
 
         return albumModel;
     }

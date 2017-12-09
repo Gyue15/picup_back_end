@@ -63,14 +63,21 @@ public class UserController {
         UserModel userModel = new UserModel();
         userModel.username = username;
         userModel.avatar = url;
-        return JSON.toJSONString(userService.modifyUser(userModel));
+        ResultMessage res = userService.modifyUser(userModel);
+        if (res != ResultMessage.SUCCESS) {
+            return JSON.toJSONString(res);
+        }
+        return url;
     }
 
     @PostMapping("/changePassword")
-    public String changePassword(String username, String password) {
-        UserModel userModel = new UserModel();
+    public String changePassword(String username, String oldPassword, String newPassword) {
+        UserModel userModel = userService.getUser(username, oldPassword);
+        if (userModel == null || userModel.uid == null) {
+            return JSON.toJSONString(ResultMessage.FAILURE);
+        }
         userModel.username = username;
-        userModel.password = password;
+        userModel.password = newPassword;
         return JSON.toJSONString(userService.modifyUser(userModel));
     }
 
