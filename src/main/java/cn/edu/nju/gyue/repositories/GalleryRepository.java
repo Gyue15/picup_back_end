@@ -12,13 +12,11 @@ import java.util.List;
 public interface GalleryRepository extends JpaRepository<Gallery, Integer> {
     Gallery findByGid(Integer gid);
 
-    List<Gallery> findByLikedUser_Uid(Integer uid);
-
     Gallery findByGidAndLikedUser_Uid(Integer gid, Integer uid);
 
     List<Gallery> findByUid(Integer uid);
 
     Page<Gallery> findByLikeNumGreaterThanEqual(Integer base, Pageable pageable);
 
-    List<Gallery> findByTagsList_Tag(String tag);
+    List<Gallery> findByTitleLikeOrDescriptionLikeOrTagsList_TagLikeOrderByDateDesc(String title, String description, String tag);
 }

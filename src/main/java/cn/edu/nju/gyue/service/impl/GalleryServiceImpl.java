@@ -54,7 +54,7 @@ public class GalleryServiceImpl implements GalleryService {
         // 按时间排序
         sort(galleryList);
 
-        return galleryUtil.toGalleryModel(galleryRepository.findByLikedUser_Uid(uid), uid);
+        return galleryUtil.toGalleryModel(galleryList, uid);
     }
 
     @Override
@@ -184,8 +184,11 @@ public class GalleryServiceImpl implements GalleryService {
     }
 
     @Override
-    public List<GalleryModel> searchGallery(String tag, String userName) {
-        List<Gallery> galleryList = galleryRepository.findByTagsList_Tag(tag);
+    public List<GalleryModel> searchGallery(String keyWords, String userName) {
+        keyWords = "%" + keyWords + "%";
+        List<Gallery> galleryList = galleryRepository.
+                findByTitleLikeOrDescriptionLikeOrTagsList_TagLikeOrderByDateDesc(keyWords, keyWords, keyWords);
+//        galleryList = galleryRepository.findByTitleLike(keyWords);
         return galleryUtil.toGalleryModel(galleryList, userService.usernameToUid(userName));
     }
 

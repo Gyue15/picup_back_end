@@ -54,8 +54,8 @@ public class GalleryController {
 
     @PostMapping("/searchGallery")
     @ResponseBody
-    public String searchGallery(String tag, String username) {
-        return JSON.toJSONString(galleryService.searchGallery(tag, username));
+    public String searchGallery(String keyWords, String username) {
+        return JSON.toJSONString(galleryService.searchGallery(keyWords, username));
     }
 
     @PostMapping("/detail")

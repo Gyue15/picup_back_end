@@ -20,6 +20,9 @@ public class TestController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    GalleryController galleryController;
+
     @RequestMapping("/")
     @ResponseBody
     public String test() {
@@ -33,7 +36,7 @@ public class TestController {
             System.out.println(gallery.toString());
         }
 
-        System.out.println(galleryService.getGallery(9, "").toString());
+        System.out.println(galleryController.searchGallery("猫", "gyue"));
 
         return "hello";
     }
