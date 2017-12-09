@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService {
         if (userModel.username != null) {
             user.username = userModel.username;
         }
-        if (userModel.username != null) {
+        if (userModel.password != null) {
             user.password = userModel.password;
         }
 
