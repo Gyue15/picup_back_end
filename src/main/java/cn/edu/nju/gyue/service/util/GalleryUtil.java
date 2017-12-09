@@ -70,7 +70,7 @@ public class GalleryUtil {
         galleryModel.isLiked = testGallery != null && testGallery.gid != null;
 
         // is followed
-        galleryModel.isFollowed = userService.isFollowed(uid, gallery.gid);
+        galleryModel.isFollowed = userService.isFollowed(uid, gallery.uid);
 
         // user
         User user = userRepository.findByUid(gallery.uid);
