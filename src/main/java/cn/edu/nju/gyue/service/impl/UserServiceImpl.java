@@ -128,7 +128,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Boolean isFollowed(Integer followerUid, Integer followedUid) {
-        List<User> userList = userRepository.findByFollowers_Uid(followedUid);
+        List<User> userList = userRepository.findByFollowers_Uid(followerUid);
         for (User user: userList) {
             if (user.uid.equals(followedUid)) {
                 return true;
