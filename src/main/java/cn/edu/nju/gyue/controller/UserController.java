@@ -71,6 +71,7 @@ public class UserController {
     }
 
     @PostMapping("/changePassword")
+    @ResponseBody
     public String changePassword(String username, String oldPassword, String newPassword) {
         UserModel userModel = userService.getUser(username, oldPassword);
         if (userModel == null || userModel.uid == null) {
@@ -78,7 +79,9 @@ public class UserController {
         }
         userModel.username = username;
         userModel.password = newPassword;
-        return JSON.toJSONString(userService.modifyUser(userModel));
+        String res = JSON.toJSONString(userService.modifyUser(userModel));
+        System.out.println(res);
+        return res;
     }
 
 
