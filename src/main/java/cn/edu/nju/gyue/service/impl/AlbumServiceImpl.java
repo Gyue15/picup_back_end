@@ -48,7 +48,7 @@ public class AlbumServiceImpl implements AlbumService {
         Album album = new Album();
         String aid = albumModel.aid;
         if (aid == null) {
-            aid = albumModel.uid+albumModel.title;
+            aid = username + albumModel.title;
         }
         album.aid = aid;
         if (userRepository.findByUsername(username).size() == 0) {
