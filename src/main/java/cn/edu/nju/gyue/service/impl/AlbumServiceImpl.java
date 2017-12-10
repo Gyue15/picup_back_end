@@ -2,6 +2,7 @@ package cn.edu.nju.gyue.service.impl;
 
 import cn.edu.nju.gyue.entities.Album;
 import cn.edu.nju.gyue.entities.Photo;
+import cn.edu.nju.gyue.entities.User;
 import cn.edu.nju.gyue.models.AlbumModel;
 import cn.edu.nju.gyue.repositories.AlbumRepository;
 import cn.edu.nju.gyue.repositories.PhotoRepository;
@@ -51,10 +52,11 @@ public class AlbumServiceImpl implements AlbumService {
             aid = username + albumModel.title;
         }
         album.aid = aid;
-        if (userRepository.findByUsername(username).size() == 0) {
+        List<User> userList = userRepository.findByUsername(username);
+        if (userList.size() == 0) {
             return ResultMessage.FAILURE;
         }
-        album.uid = userRepository.findByUsername(username).get(0).uid;
+        album.uid = userList.get(0).uid;
         album.title = albumModel.title;
         // 判断重复
         if (albumRepository.findByAid(aid) != null) {
