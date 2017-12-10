@@ -64,5 +64,17 @@ public class GalleryController {
         return JSON.toJSONString(galleryService.getGallery(gid, username));
     }
 
+    /**
+     *
+     * @param uid 获得uid对应的用户的主页
+     * @param visitor 访问这个主页的人的uid
+     * @return gallery的list
+     */
+    @PostMapping("/myGallery")
+    @ResponseBody
+    public String getMyGallery(Integer uid, Integer visitor) {
+        return JSON.toJSONString(galleryService.getMyGallery(uid, visitor));
+    }
+
 
 }

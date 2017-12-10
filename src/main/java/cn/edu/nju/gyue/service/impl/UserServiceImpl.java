@@ -3,6 +3,7 @@ package cn.edu.nju.gyue.service.impl;
 import cn.edu.nju.gyue.entities.User;
 import cn.edu.nju.gyue.models.UserModel;
 import cn.edu.nju.gyue.repositories.UserRepository;
+import cn.edu.nju.gyue.service.MessageService;
 import cn.edu.nju.gyue.service.UserService;
 import cn.edu.nju.gyue.util.ResultMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private MessageService messageService;
 
     @Override
     public Integer addUser(UserModel userModel) {
@@ -83,6 +87,9 @@ public class UserServiceImpl implements UserService {
 
         followed.getFollowers().add(follower);
         userRepository.saveAndFlush(followed);
+
+        // 存储消息
+        messageService.saveMessage(followed.uid, "关注了你", follower);
 
         return ResultMessage.SUCCESS;
     }

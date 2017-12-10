@@ -24,4 +24,6 @@ public interface GalleryService {
     List<GalleryModel> getLatestGallerys(String userName, int pageNum);
 
     List<GalleryModel> searchGallery(String keyWords, String userName);
+
+    List<GalleryModel> getMyGallery(Integer uid, Integer visitor);
 }

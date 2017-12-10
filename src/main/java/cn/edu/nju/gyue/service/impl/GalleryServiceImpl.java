@@ -8,6 +8,7 @@ import cn.edu.nju.gyue.repositories.GalleryRepository;
 import cn.edu.nju.gyue.repositories.TagsRepository;
 import cn.edu.nju.gyue.repositories.UserRepository;
 import cn.edu.nju.gyue.service.GalleryService;
+import cn.edu.nju.gyue.service.MessageService;
 import cn.edu.nju.gyue.service.UserService;
 import cn.edu.nju.gyue.service.util.GalleryUtil;
 import cn.edu.nju.gyue.util.ResultMessage;
@@ -32,12 +33,14 @@ public class GalleryServiceImpl implements GalleryService {
     @Autowired
     private TagsRepository tagsRepository;
 
-
     @Autowired
     private UserService userService;
 
     @Autowired
     private GalleryUtil galleryUtil;
+
+    @Autowired
+    private MessageService messageService;
 
     @Override
     public List<GalleryModel> getInterestGalleryList(String username) {
@@ -79,6 +82,9 @@ public class GalleryServiceImpl implements GalleryService {
         gallery.likeNum = gallery.likeNum + 1;
         gallery = galleryRepository.saveAndFlush(gallery);
         System.out.println("save gallery: " + gallery.toString());
+
+        // 存储消息
+        messageService.saveMessage(gallery.uid, "赞了你的动态 " + gallery.title, user);
 
         return ResultMessage.SUCCESS;
     }
@@ -154,6 +160,14 @@ public class GalleryServiceImpl implements GalleryService {
             return -1;
         }
 
+        // 存储消息
+        List<User> owners = userRepository.findByFollowedUsers_Uid(galleryModel.uid);
+        List<Integer> ownerUid = new ArrayList<>();
+        for (User user : owners) {
+            ownerUid.add(user.uid);
+        }
+        messageService.saveMessageList(ownerUid, "发布了一条新的动态", userRepository.findByUid(gallery.uid));
+
         return gallery.gid;
     }
 
@@ -192,6 +206,14 @@ public class GalleryServiceImpl implements GalleryService {
                 findByTitleLikeOrDescriptionLikeOrTagsList_TagLikeOrderByDateDesc(keyWords, keyWords, keyWords);
 //        galleryList = galleryRepository.findByTitleLike(keyWords);
         return galleryUtil.toGalleryModel(galleryList, userService.usernameToUid(userName));
+    }
+
+    @Override
+    public List<GalleryModel> getMyGallery(Integer uid, Integer visitor) {
+        List<Gallery> galleryList = galleryRepository.findByUid(uid);
+        // 增加消息
+        messageService.saveMessage(uid, "访问了你的个人主页", userRepository.findByUid(visitor));
+        return galleryUtil.toGalleryModel(galleryList, uid);
     }
 
 

@@ -6,8 +6,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 @Configuration
 public class FilePathConfig extends WebMvcConfigurerAdapter {
-    public static final String PATH = "/Users/john/Pictures/picup/";
-    public static final String AVATAR_PATH = "/Users/john/Pictures/picup/avatar/";
+    public static final String PATH = "/Users/gyue/Pictures/MyPicture/";
+    public static final String AVATAR_PATH = "/Users/gyue/Pictures/MyPicture/avatarr/";
 
     //供客户端使用的url前缀
     public static final String URL = "http://localhost:8080/picture/";
