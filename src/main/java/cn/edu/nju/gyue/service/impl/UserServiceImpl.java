@@ -65,12 +65,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserModel getUser(String username) {
-        List<User> user = userRepository.findByUsername(username);
-        if (user.size() == 0) {
-            return new UserModel();
-        }
-        return toUserModel(user.get(0));
+    public UserModel getUser(Integer uid) {
+        User user = userRepository.getOne(uid);
+        return toUserModel(user);
     }
 
     @Override

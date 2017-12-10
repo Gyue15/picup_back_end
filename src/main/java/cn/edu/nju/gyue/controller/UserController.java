@@ -51,8 +51,8 @@ public class UserController {
 
     @PostMapping("/getUser")
     @ResponseBody
-    public String getUser(String username) {
-        UserModel userModel = userService.getUser(username);
+    public String getUser(Integer uid) {
+        UserModel userModel = userService.getUser(uid);
         userModel.password = null;
         return JSON.toJSONString(userModel);
     }

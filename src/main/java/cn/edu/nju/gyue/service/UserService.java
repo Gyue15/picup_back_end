@@ -13,7 +13,7 @@ public interface UserService {
 
     UserModel getUser(String userName, String password);
 
-    UserModel getUser(String username);
+    UserModel getUser(Integer uid);
 
     List<UserModel> getFollowedUser(String userName);
 
