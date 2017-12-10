@@ -83,6 +83,10 @@ public class GalleryServiceImpl implements GalleryService {
         gallery = galleryRepository.saveAndFlush(gallery);
         System.out.println("save gallery: " + gallery.toString());
 
+        if (uid.equals(gallery.uid)) {
+            return ResultMessage.SUCCESS;
+        }
+
         // 存储消息
         messageService.saveMessage(gallery.uid, "赞了你的动态 " + gallery.title, user);
 
