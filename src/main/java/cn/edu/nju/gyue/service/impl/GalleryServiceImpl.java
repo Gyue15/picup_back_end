@@ -204,7 +204,6 @@ public class GalleryServiceImpl implements GalleryService {
         keyWords = "%" + keyWords + "%";
         List<Gallery> galleryList = galleryRepository.
                 findByTitleLikeOrDescriptionLikeOrTagsList_TagLikeOrderByDateDesc(keyWords, keyWords, keyWords);
-//        galleryList = galleryRepository.findByTitleLike(keyWords);
         return galleryUtil.toGalleryModel(galleryList, userService.usernameToUid(userName));
     }
 
@@ -212,7 +211,9 @@ public class GalleryServiceImpl implements GalleryService {
     public List<GalleryModel> getMyGallery(Integer uid, Integer visitor) {
         List<Gallery> galleryList = galleryRepository.findByUid(uid);
         // 增加消息
-        messageService.saveMessage(uid, "访问了你的个人主页", userRepository.findByUid(visitor));
+        if (!uid.equals(visitor)) {
+            messageService.saveMessage(uid, "访问了你的个人主页", userRepository.findByUid(visitor));
+        }
         return galleryUtil.toGalleryModel(galleryList, uid);
     }
 
