@@ -26,4 +26,10 @@ public class MessageController {
         messageService.readMessageList(uid);
         return res;
     }
+
+    @PostMapping("/hasNewMessage")
+    @ResponseBody
+    public boolean hasNewMessage(Integer uid) {
+        return messageService.hasNewMessage(uid);
+    }
 }

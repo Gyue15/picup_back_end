@@ -25,7 +25,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public List<MessageModel> getMessageList(Integer uid) {
-        List<Message> messageList = messageRepository.findByOwner(uid);
+        List<Message> messageList = messageRepository.findByOwnerOrderByDateDesc(uid);
         List<MessageModel> messageModelList = new ArrayList<>();
 
         for (Message message : messageList) {
@@ -67,7 +67,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public ResultMessage readMessageList(Integer uid) {
-        List<Message> messageList = messageRepository.findByOwner(uid);
+        List<Message> messageList = messageRepository.findByOwnerOrderByDateDesc(uid);
         return readMessageList(messageList);
     }
 
@@ -75,10 +75,18 @@ public class MessageServiceImpl implements MessageService {
     public ResultMessage readMessageList(List<Message> originalMessage) {
         List<Message> toSave = new ArrayList<>();
         for (Message message : originalMessage) {
-            toSave.add(message);
+            if (!message.isRead) {
+                message.isRead = true;
+                toSave.add(message);
+            }
         }
         messageRepository.save(toSave);
         return ResultMessage.SUCCESS;
+    }
+
+    @Override
+    public Boolean hasNewMessage(Integer uid) {
+        return !messageRepository.findByOwnerAndIsRead(uid, false).isEmpty();
     }
 
     private Message toMessage(Integer owner, String text, User user) {

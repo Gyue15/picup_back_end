@@ -9,5 +9,7 @@ import java.util.List;
 @Repository
 public interface MessageRepository extends JpaRepository<Message, Integer> {
 
-    List<Message> findByOwner(Integer owner);
+    List<Message> findByOwnerOrderByDateDesc(Integer owner);
+
+    List<Message> findByOwnerAndIsRead(Integer owner, Boolean isRead);
 }

@@ -18,4 +18,6 @@ public interface MessageService {
     ResultMessage readMessageList(Integer uid);
 
     ResultMessage readMessageList(List<Message> originalMessage);
+
+    Boolean hasNewMessage(Integer uid);
 }
