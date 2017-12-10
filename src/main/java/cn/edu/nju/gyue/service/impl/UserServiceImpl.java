@@ -65,6 +65,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserModel getUser(String username) {
+        List<User> user = userRepository.findByUsername(username);
+        if (user.size() == 0) {
+            return new UserModel();
+        }
+        return toUserModel(user.get(0));
+    }
+
+    @Override
     public List<UserModel> getFollowedUser(String userName) {
         List<User> userList = userRepository.findByFollowers_Uid(userRepository.findByUsername(userName).get(0).uid);
         List<UserModel> userModelList = new ArrayList<>();

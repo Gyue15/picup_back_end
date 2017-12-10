@@ -13,6 +13,8 @@ public interface UserService {
 
     UserModel getUser(String userName, String password);
 
+    UserModel getUser(String username);
+
     List<UserModel> getFollowedUser(String userName);
 
     ResultMessage follow(String followerUser, String followedUser);

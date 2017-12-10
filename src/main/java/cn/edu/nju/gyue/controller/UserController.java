@@ -49,6 +49,14 @@ public class UserController {
         return res > 0 ? JSON.toJSONString(ResultMessage.SUCCESS) : JSON.toJSONString(ResultMessage.FAILURE);
     }
 
+    @PostMapping("/getUser")
+    @ResponseBody
+    public String getUser(String username) {
+        UserModel userModel = userService.getUser(username);
+        userModel.password = null;
+        return JSON.toJSONString(userModel);
+    }
+
     @PostMapping("/upload")
     @ResponseBody
     public String upload(MultipartFile file) {
