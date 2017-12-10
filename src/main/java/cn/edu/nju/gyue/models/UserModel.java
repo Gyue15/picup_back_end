@@ -11,6 +11,16 @@ public class UserModel {
 
     public String avatar;
 
+    /**
+     * 粉丝数量
+     */
+    public Integer fansNum;
+
+    /**
+     * 关注数量
+     */
+    public Integer followedNum;
+
     @Override
     public boolean equals(Object obj) {
 

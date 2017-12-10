@@ -162,6 +162,10 @@ public class UserServiceImpl implements UserService {
         userModel.password = user.password;
         userModel.username = user.username;
         userModel.uid = user.uid;
+        // 获得粉丝数量
+        userModel.fansNum = userRepository.findByFollowedUsers_Uid(user.uid).size();
+        // 获得关注人数量
+        userModel.followedNum = userRepository.findByFollowers_Uid(user.uid).size();
         return userModel;
     }
 }
