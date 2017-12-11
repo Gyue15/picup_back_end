@@ -73,6 +73,7 @@ public class GalleryController {
     @PostMapping("/myGallery")
     @ResponseBody
     public String getMyGallery(Integer uid, Integer visitor) {
+        System.out.println(uid+"======"+visitor);
         return JSON.toJSONString(galleryService.getMyGallery(uid, visitor));
     }
 

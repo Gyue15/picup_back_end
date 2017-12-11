@@ -38,7 +38,7 @@ public class UserController {
     @ResponseBody
     public String signUp(String username, String password) {
         UserModel userModel = new UserModel();
-        userModel.avatar = FilePathConfig.AVATAR_URL + "default.jpg";
+        userModel.avatar = FilePathConfig.AVATAR_URL + FilePathConfig.AVATAR_NAME;
         userModel.password = password;
         userModel.username = username;
         int res = userService.addUser(userModel);
@@ -54,7 +54,9 @@ public class UserController {
     public String getUser(Integer uid) {
         UserModel userModel = userService.getUser(uid);
         userModel.password = null;
-        return JSON.toJSONString(userModel);
+        String res = JSON.toJSONString(userModel);
+        System.out.println(res);
+        return res;
     }
 
     @PostMapping("/upload")
